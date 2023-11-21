@@ -47,6 +47,15 @@ Type 'GO' to start the game!
       expect(actual_output).to eq(expected_output)
     end
 
+    it "displays the welcome message" do
+      # allow method mocks the start_game_on_user_input method
+      # "allow" will allow the test to be isolated and focus on the behavior of the method
+      allow(game).to receive(:start_game_on_user_input)
+      # asserts that game.start returns a message that contains
+      expect { game.start }.to output(/Welcome to War! \(or Peace\)/).to_stdout
+    end
+
+
     it "#play_game" do
       game.play_game
     end
