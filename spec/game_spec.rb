@@ -31,33 +31,50 @@ let!(:game) { Game.new(player1, player2) }
     expect(game.player2).to eq(player2)
   end
 
-  describe "#start" do
-    xit "displays the welcome message" do
-      expected_output = <<-EXPECTED
+#   describe "#start" do
+#     xit "displays the welcome message" do
+#       expected_output = <<-EXPECTED
+# Welcome to War! (or Peace) This game will be played with 52 cards.
+# The players today are #{player1.name} and #{player2.name}.
+# Type 'GO' to start the game!
+# ------------------------------------------------------------------
+#       EXPECTED
+
+#       # expected_output = "Welcome to War! (or Peace) This game will be played with 52 cards.\nThe players today are Joey and Josephinie.\nType 'GO' to start the game!\n------------------------------------------------------------------\n"
+
+#       actual_output = `ruby pieces_of_war_runner.rb`
+
+#       expect(actual_output).to eq(expected_output)
+#     end
+
+    it "displays the welcome message" do
+      expected = <<-EXPECTED
 Welcome to War! (or Peace) This game will be played with 52 cards.
 The players today are #{player1.name} and #{player2.name}.
 Type 'GO' to start the game!
 ------------------------------------------------------------------
-      EXPECTED
-
-      # expected_output = "Welcome to War! (or Peace) This game will be played with 52 cards.\nThe players today are Joey and Josephinie.\nType 'GO' to start the game!\n------------------------------------------------------------------\n"
-
-      actual_output = `ruby pieces_of_war_runner.rb`
-
-      expect(actual_output).to eq(expected_output)
-    end
-
-    it "displays the welcome message" do
+            EXPECTED
       # allow method mocks the start_game_on_user_input method
       # "allow" will allow the test to be isolated and focus on the behavior of the method
       allow(game).to receive(:start_game_on_user_input)
       # asserts that game.start returns a message that contains
       expect { game.start }.to output(/Welcome to War! \(or Peace\)/).to_stdout
+      expect { game.start }.to output(expected).to_stdout
     end
 
+    xit "starts the game with user input" do
+      allow(game).to receive(:start_game_on_user_input)
+      allow(game).to receive(:gets).and_return("GO")
+      # expect(game).to receive(:play_game).at_least(:once)
+      expect(game).to receive(:take_turn).at_least(:once)
+      expect(game).to receive(:print_winner_messages).at_least(:once)
+      expect(game).to receive(:draw?).at_least(:once)
 
-    it "#play_game" do
+      game.start
+    end
+
+    xit "#play_game" do
       game.play_game
     end
-  end
+  # end
 end

@@ -10,9 +10,9 @@ class Turn
   end
 
   def type
-    if player1.deck.cards[0].rank == player2.deck.cards[0].rank && player1.deck.cards[2].rank == player2.deck.cards[2].rank
+    if player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) == player2.deck.rank_of_card_at(2)
       :mutually_assured_destruction
-    elsif player1.deck.cards[0].rank == player2.deck.cards[0].rank
+    elsif player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0)
       :war
     else
       :basic
@@ -46,12 +46,12 @@ class Turn
   end
 
   def basic_play
-    return player1 if player1.deck.cards[0].rank > player2.deck.cards[0].rank
+    return player1 if player1.deck.rank_of_card_at(0) > player2.deck.rank_of_card_at(0)
     player2
   end
 
   def war_play
-    return player1 if player1.deck.cards[2].rank > player2.deck.cards[2].rank
+    return player1 if player1.deck.rank_of_card_at(2) > player2.deck.rank_of_card_at(2)
     player2
   end
 
@@ -63,6 +63,7 @@ class Turn
   def basic_pile
     spoils_of_war << player1.deck.cards.shift
     spoils_of_war << player2.deck.cards.shift
+
   end
 
   def war_pile

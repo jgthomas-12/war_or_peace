@@ -62,7 +62,7 @@ class Game
   end
 
   def print_draw_message
-    puts "Turn #{@turn_counter}: DRAW"
+    puts "Turn #{@turn_counter}: ---- DRAW ----"
   end
 
   def draw?
