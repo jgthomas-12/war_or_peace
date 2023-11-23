@@ -3,7 +3,7 @@ require "./lib/deck"
 require "./lib/deck_builder"
 
 RSpec.describe DeckBuilder do
-  let!(:git deck_builder) { DeckBuilder.new }
+  let!(:deck_builder) { DeckBuilder.new }
 
   it "exists" do
     expect(deck_builder).to be_a(DeckBuilder)
