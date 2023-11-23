@@ -56,8 +56,8 @@ class Turn
   end
 
   def mutually_assured_destruction_play
-    player1.deck.cards.slice!(0..2)
-    player2.deck.cards.slice!(0..2)
+    3.times { player1.deck.remove_card }
+    3.times { player2.deck.remove_card }
   end
 
   def basic_pile
@@ -68,9 +68,9 @@ class Turn
 
   def war_pile
     spoils_of_war.concat(player1.deck.cards[0..2])
-    player1.deck.cards.slice!(0..2)
+    3.times { player1.deck.remove_card }
     spoils_of_war.concat(player2.deck.cards[0..2])
-    player2.deck.cards.slice!(0..2)
+    3.times { player2.deck.remove_card }
     spoils_of_war.flatten!
   end
 end
